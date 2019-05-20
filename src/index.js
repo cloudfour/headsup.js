@@ -25,8 +25,6 @@ export default ({
 
   const fixedShow = () => {
     // shows the element
-    header.style.transform = ``;
-
     body.classList.add(stickyBodyClass);
 
     show = true;
@@ -34,8 +32,6 @@ export default ({
 
   const fixedHide = () => {
     // hides the element
-    header.style.transform = `translateY(-100%)`;
-
     body.classList.remove(stickyBodyClass);
 
     show = false;
@@ -74,13 +70,6 @@ export default ({
   body.style['margin-top'] = `${headerHeight()}px`; // adjust body margin to make space for header
 
   body.classList.add(stickyBodyClass);
-
-  Object.assign(header.style, {
-    // assign fixed position and transition to header
-    position: 'fixed',
-    top: '0',
-    transition: `transform ${duration}s ${easing} ${delay}s`
-  });
 
   window.addEventListener('scroll', debounceFunc(debounce));
 };
