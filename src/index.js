@@ -25,7 +25,7 @@ export default ({
 
   const fixedShow = () => {
     // shows the element
-    header.style.top = '0';
+    header.style.transform = ``;
 
     body.classList.add(stickyBodyClass);
 
@@ -34,7 +34,7 @@ export default ({
 
   const fixedHide = () => {
     // hides the element
-    header.style.top = `-${headerHeight()}px`;
+    header.style.transform = `translateY(-100%)`;
 
     body.classList.remove(stickyBodyClass);
 
@@ -79,7 +79,7 @@ export default ({
     // assign fixed position and transition to header
     position: 'fixed',
     top: '0',
-    transition: `top ${duration}s ${easing} ${delay}s`
+    transition: `transform ${duration}s ${easing} ${delay}s`
   });
 
   window.addEventListener('scroll', debounceFunc(debounce));
