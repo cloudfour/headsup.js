@@ -1,17 +1,10 @@
-import resolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
+import resolve from 'rollup-plugin-node-resolve';
 
 export default {
-  input: 'src/headsup.js',
+  input: './src',
   output: {
     file: 'dist/headsup.js',
-    format: 'umd',
-    name: 'headsup'
+    format: 'esm'
   },
-  plugins: [
-    resolve(),
-    babel({
-      exclude: 'node_modules/**'
-    })
-  ]
-}
+  plugins: [resolve()]
+};
