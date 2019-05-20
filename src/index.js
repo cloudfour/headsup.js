@@ -8,6 +8,7 @@ export default ({
 } = {}) => {
   let show = true; // initial boolean value
   let prev = window.pageYOffset; // initial window position
+  let enabled = true;
 
   const header = document.querySelector(selector);
   const styles = window.getComputedStyle(header);
@@ -38,6 +39,7 @@ export default ({
   };
 
   const onScrollFunction = _ => {
+    if (!enabled) return;
     // performs logic on each scroll event
     const current = window.pageYOffset;
 
@@ -72,4 +74,9 @@ export default ({
   body.classList.add(stickyBodyClass);
 
   window.addEventListener('scroll', debounceFunc(debounce));
+
+  const disable = () => (enabled = false);
+  const enable = () => (enabled = true);
+
+  return { disable, enable };
 };
