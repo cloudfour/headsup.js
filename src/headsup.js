@@ -2,85 +2,64 @@ export default ({
   selector = 'header',
   duration = 0.3,
   easing = 'ease',
-  delay = 0,
-  debounce = false,
-  stickyBodyClass = 'header-is-stuck'
+  hiddenHeaderClass = 'js-header-hidden'
 } = {}) => {
-  let show = true                                         // initial boolean value
-  let prev = window.pageYOffset                           // initial window position
+  let show = true; // Initial boolean value
+  let prev = window.pageYOffset; // Initial window position
+  let enabled = true;
 
-  const header = document.querySelector(selector)
-  const styles = window.getComputedStyle(header)
+  const header = document.querySelector(selector);
+  const styles = window.getComputedStyle(header);
 
-  const body = document.body
+  const body = document.body;
 
-  const headerHeight = () => {                            // computes total height of the element
-    const widthAndPadding = header
-      .getBoundingClientRect()
-      .height
-    const marginTop = parseFloat(styles['margin-top'])
-    const marginBot = parseFloat(styles['margin-bottom'])
+  const headerHeight = () => {
+    // Computes total height of the element
+    const widthAndPadding = header.getBoundingClientRect().height;
+    const marginTop = parseFloat(styles['margin-top']);
+    const marginBot = parseFloat(styles['margin-bottom']);
 
-    return widthAndPadding + marginTop + marginBot
-  }
+    return widthAndPadding + marginTop + marginBot;
+  };
 
-  const fixedShow = () => {                               // shows the element
-    header
-      .style
-      .top = '0'
+  const fixedShow = () => {
+    // Shows the element
+    body.classList.remove(hiddenHeaderClass);
 
-    body
-      .classList.add(stickyBodyClass)
+    show = true;
+  };
 
-    show = true
-  }
+  const fixedHide = () => {
+    // Hides the element
+    body.classList.add(hiddenHeaderClass);
 
-  const fixedHide = () => {                               // hides the element
-    header
-      .style
-      .top = `-${headerHeight()}px`
+    show = false;
+  };
 
-      body
-        .classList.remove(stickyBodyClass)
+  const handleScroll = () => {
+    if (!enabled) return;
+    // Performs logic on each scroll event
+    const current = window.pageYOffset;
 
-    show = false
-  }
+    if (current > prev && current >= headerHeight() / 2) {
+      if (show) fixedHide();
+    } else if (!show) fixedShow();
 
-  const onScrollFunction = _ => {                         // performs logic on each scroll event
-    const current = window.pageYOffset
+    prev = current;
+  };
 
-    current > prev && current >= (headerHeight() / 2)
-      ? show ? fixedHide() : null
-      : show ? null : fixedShow()
+  let lastCalled = 0;
 
-    prev = current
-  }
+  // ignore scroll events within 100ms of the previous event
+  window.addEventListener('scroll', () => {
+    const now = new Date().getTime();
+    if (now - lastCalled < 100) return;
+    lastCalled = now;
+    handleScroll();
+  });
 
-  const debounceFunc = wait => {                          // debouncing function
-    if (!wait) return onScrollFunction
+  const disable = () => (enabled = false);
+  const enable = () => (enabled = true);
 
-    let timeout = null
-    return () => {
-      if (!timeout) {
-        timeout = setTimeout(() => {
-          onScrollFunction()
-          timeout = null
-        }, wait)
-      }
-    }
-  }
-
-  body
-    .style['margin-top'] = `${headerHeight()}px` // adjust body margin to make space for header
-
-  body
-    .classList.add(stickyBodyClass)
-
-  Object.assign(header.style, {                           // assign fixed position and transition to header
-    position: 'fixed',
-    top: '0',
-    transition: `top ${duration}s ${easing} ${delay}s`
-  })
-
-  window.addEventListener('scroll', debounceFunc(debounce))
-}
+  return { disable, enable };
+};
