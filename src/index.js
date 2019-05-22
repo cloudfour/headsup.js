@@ -2,7 +2,7 @@ export default ({
   selector = 'header',
   duration = 0.3,
   easing = 'ease',
-  stickyBodyClass = 'header-is-stuck'
+  hiddenHeaderClass = 'js-header-hidden'
 } = {}) => {
   let show = true; // initial boolean value
   let prev = window.pageYOffset; // initial window position
@@ -24,14 +24,14 @@ export default ({
 
   const fixedShow = () => {
     // shows the element
-    body.classList.add(stickyBodyClass);
+    body.classList.remove(hiddenHeaderClass);
 
     show = true;
   };
 
   const fixedHide = () => {
     // hides the element
-    body.classList.remove(stickyBodyClass);
+    body.classList.add(hiddenHeaderClass);
 
     show = false;
   };
@@ -51,8 +51,6 @@ export default ({
 
     prev = current;
   };
-
-  body.classList.add(stickyBodyClass);
 
   let lastCalled = 0;
 
