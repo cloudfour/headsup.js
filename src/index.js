@@ -52,8 +52,6 @@ export default ({
     prev = current;
   };
 
-  body.style['margin-top'] = `${headerHeight()}px`; // adjust body margin to make space for header
-
   body.classList.add(stickyBodyClass);
 
   let lastCalled = 0;
