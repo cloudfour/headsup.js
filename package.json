@@ -2,11 +2,9 @@
   "name": "headsup.js",
   "version": "1.0.2",
   "description": "Sticky headers that hide on scroll.",
-  "main": "dist/headsup.js",
+  "main": "src/headsup.js",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c",
-    "prepublish": "npm run build",
     "test": "standard src/*.js",
     "check-lint": "prettier --list-different '**/*.js' && eslint '**/*.js'",
     "lint": "prettier --write '**/*.js' && eslint --fix '**/*.js'"
@@ -36,8 +34,6 @@
   "devDependencies": {
     "@cloudfour/eslint-plugin": "^2.0.1",
     "eslint": "^5.16.0",
-    "prettier": "^1.17.1",
-    "rollup": "^1.12.3",
-    "rollup-plugin-node-resolve": "^5.0.0"
+    "prettier": "^1.17.1"
   }
 }
