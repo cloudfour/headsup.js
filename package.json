@@ -7,11 +7,16 @@
   "scripts": {
     "build": "rollup -c",
     "prepublish": "npm run build",
-    "test": "standard src/*.js"
+    "test": "standard src/*.js",
+    "check-lint": "prettier --list-different '**/*.js' && eslint '**/*.js'",
+    "lint": "prettier --write '**/*.js' && eslint --fix '**/*.js'"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ChrisCavs/headsup.js.git"
+  },
+  "eslintConfig": {
+    "extends": "plugin:@cloudfour/recommended"
   },
   "prettier": {
     "singleQuote": true
@@ -29,6 +34,8 @@
     "url": "http://chriscavs.github.io/"
   },
   "devDependencies": {
+    "@cloudfour/eslint-plugin": "^2.0.1",
+    "eslint": "^5.16.0",
     "prettier": "^1.17.1",
     "rollup": "^1.12.3",
     "rollup-plugin-node-resolve": "^5.0.0"
