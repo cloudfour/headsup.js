@@ -2,8 +2,6 @@ export default ({
   selector = 'header',
   duration = 0.3,
   easing = 'ease',
-  delay = 0,
-  debounce = false,
   stickyBodyClass = 'header-is-stuck'
 } = {}) => {
   let show = true; // initial boolean value
@@ -38,7 +36,7 @@ export default ({
     show = false;
   };
 
-  const onScrollFunction = _ => {
+  const handleScroll = () => {
     if (!enabled) return;
     // performs logic on each scroll event
     const current = window.pageYOffset;
@@ -54,26 +52,19 @@ export default ({
     prev = current;
   };
 
-  const debounceFunc = wait => {
-    // debouncing function
-    if (!wait) return onScrollFunction;
-
-    let timeout = null;
-    return () => {
-      if (!timeout) {
-        timeout = setTimeout(() => {
-          onScrollFunction();
-          timeout = null;
-        }, wait);
-      }
-    };
-  };
-
   body.style['margin-top'] = `${headerHeight()}px`; // adjust body margin to make space for header
 
   body.classList.add(stickyBodyClass);
 
-  window.addEventListener('scroll', debounceFunc(debounce));
+  let lastCalled = 0;
+
+  // ignore scroll events within 100ms of the previous event
+  window.addEventListener('scroll', () => {
+    const now = new Date().getTime();
+    if (now - lastCalled < 100) return;
+    lastCalled = now;
+    handleScroll();
+  });
 
   const disable = () => (enabled = false);
   const enable = () => (enabled = true);
