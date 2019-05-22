@@ -4,8 +4,8 @@ export default ({
   easing = 'ease',
   hiddenHeaderClass = 'js-header-hidden'
 } = {}) => {
-  let show = true; // initial boolean value
-  let prev = window.pageYOffset; // initial window position
+  let show = true; // Initial boolean value
+  let prev = window.pageYOffset; // Initial window position
   let enabled = true;
 
   const header = document.querySelector(selector);
@@ -14,7 +14,7 @@ export default ({
   const body = document.body;
 
   const headerHeight = () => {
-    // computes total height of the element
+    // Computes total height of the element
     const widthAndPadding = header.getBoundingClientRect().height;
     const marginTop = parseFloat(styles['margin-top']);
     const marginBot = parseFloat(styles['margin-bottom']);
@@ -23,14 +23,14 @@ export default ({
   };
 
   const fixedShow = () => {
-    // shows the element
+    // Shows the element
     body.classList.remove(hiddenHeaderClass);
 
     show = true;
   };
 
   const fixedHide = () => {
-    // hides the element
+    // Hides the element
     body.classList.add(hiddenHeaderClass);
 
     show = false;
@@ -38,16 +38,12 @@ export default ({
 
   const handleScroll = () => {
     if (!enabled) return;
-    // performs logic on each scroll event
+    // Performs logic on each scroll event
     const current = window.pageYOffset;
 
-    current > prev && current >= headerHeight() / 2
-      ? show
-        ? fixedHide()
-        : null
-      : show
-      ? null
-      : fixedShow();
+    if (current > prev && current >= headerHeight() / 2) {
+      if (show) fixedHide();
+    } else if (!show) fixedShow();
 
     prev = current;
   };
