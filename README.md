@@ -1,12 +1,10 @@
 # Heads-Up.js
 
-[![headsup.js on NPM](https://img.shields.io/npm/v/headsup.js.svg?style=flat-square)](https://www.npmjs.com/package/headsup.js)
-[![headsup.js Downloads on NPM](https://img.shields.io/npm/dm/headsup.js.svg?style=flat-square)](https://www.npmjs.com/package/headsup.js) 
-[![Standard JavaScript Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
-
 Sticky headers that hide on scroll.
 
-[See a demo.](https://chriscavs.github.io/headsup-demo/)
+Forked from [ChrisCavs](https://github.com/ChrisCavs/headsup.js). Thanks Chris! 
+
+Unlike the ChrisCavs version, this fork does not apply the styles necessary to show and hide the header. Instead it adds a class to the body when the header is hidden, allowing you to provide your own styles.
 
 ## Usage
 
@@ -42,26 +40,18 @@ All options are optional, and come with defaults. The defaults are shown below:
 ```es6
 headsUp({
   selector: 'header',
-  duration: 0.3,
-  easing: 'ease',
-  delay: 0,
-  debounce: false,
-  stickyBodyClass = 'header-is-stuck'
+  hiddenHeaderClass = 'js-header-hidden'
 })
 ```
 
 Explanation of each option follows:
 
 * [selector](#selector)
-* [duration](#duration)
-* [easing](#easing)
-* [delay](#delay)
-* [debounce](#debounce)
-* [stickyBodyClass](#stickyBodyClass)
+* [hiddenHeaderClass](#hiddenHeaderClass)
 
 ### selector
 
-Any CSS selector that targets to your header element.  It is recommended that you use the default semantic HTML tag.
+Any CSS selector that targets to your header element.
 
 ```es6
 headsUp({
@@ -69,61 +59,16 @@ headsUp({
 })
 ```
 
-### duration
+### hiddenHeaderClass
 
-The time it takes for the header to hide, in seconds.
-
-```es6
-headsUp({
-  duration: 0.5
-})
-```
-
-### easing
-
-Easing function used to transition the header.
-
-```es6
-headsUp({
-  easing: 'ease-in'
-})
-```
-
-Heads-up uses the transition property to accomplish easing.  See [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function) for more information.
-
-### delay
-
-Delay from the time the user starts scrolling until the header starts to hide, in seconds.
-
-```es6
-headsUp({
-  delay: 1
-})
-```
-
-### debounce
-
-When the user scrolls, a function is called to check whether it is necessary to hide or reveal the header.  Specify the amount of time between function calls with the debounce option, in milliseconds.  This may help with performance.
+Applies a class to the `body` element when the sticky header is hidden. This can be used to add special styles to other elements on the page.
 
 ```es6
 
-// will wait 100ms after each function call
+// will add the class `is-hidden` to the body when the header is hidden
 
 headsUp({
-  debounce: 100
-})
-```
-
-### stickyBodyClass
-
-Applies a class to the `body` element when the sticky header is shown. This can be used to add special styles to other elements on the page.
-
-```es6
-
-// will add the class `is-stuck` to the body when the header is shown
-
-headsUp({
-  stickyBodyClass: 'is-stuck'
+  hiddenHeaderClass: 'is-hidden'
 })
 ```
 
@@ -147,4 +92,6 @@ Consequently, it supports the following natively:
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT). © 2018 Christopher Cavalea
+Copyright for portions of this project are held by Christopher Cavalea, 2018. All other copyright for this project are held by Cloud Four, 2019.
+
+[MIT](https://opensource.org/licenses/MIT). © 2019 Cloud Four
