@@ -1,7 +1,5 @@
 export default ({
   selector = 'header',
-  duration = 0.3,
-  easing = 'ease',
   hiddenHeaderClass = 'js-header-hidden'
 } = {}) => {
   let show = true; // Initial boolean value
