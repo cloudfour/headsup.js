@@ -1,5 +1,6 @@
 export default ({
   selector = 'header',
+  debounce = false,
   hiddenHeaderClass = 'js-header-hidden'
 } = {}) => {
   let show = true; // Initial boolean value
@@ -46,15 +47,21 @@ export default ({
     prev = current;
   };
 
-  let lastCalled = 0;
+  const debounceFunc = wait => {
+    if (!wait) return handleScroll
 
-  // ignore scroll events within 100ms of the previous event
-  window.addEventListener('scroll', () => {
-    const now = new Date().getTime();
-    if (now - lastCalled < 100) return;
-    lastCalled = now;
-    handleScroll();
-  });
+    let timeout = null
+    return () => {
+      if (!timeout) {
+        timeout = setTimeout(() => {
+          handleScroll()
+          timeout = null
+        }, wait)
+      }
+    }
+  }
+
+  window.addEventListener('scroll', debounceFunc(debounce));
 
   const disable = () => (enabled = false);
   const enable = () => (enabled = true);
