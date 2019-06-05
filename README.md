@@ -12,18 +12,14 @@ Follow these steps to get started:
 
 1. [Install](#install)
 2. [Import](#import)
-4. [Review Options](#options)
+3. [Review Options](#options)
 
 **Note**: It is required that you use a css reset that clears user agent stylesheet margin/padding.
 See here for an [example](https://meyerweb.com/eric/tools/css/reset/).
 
 ### Install
 
-Using NPM, install Heads-up, and save it to your `package.json` dependencies.
-
-```bash
-$ npm install headsup.js --save
-```
+Install this repo as a dependency, or reference the `headsup.js` script file.
 
 ### Import
 
@@ -40,6 +36,7 @@ All options are optional, and come with defaults. The defaults are shown below:
 ```es6
 headsUp({
   selector: 'header',
+  debounce: false,
   hiddenHeaderClass = 'js-header-hidden'
 })
 ```
@@ -47,6 +44,7 @@ headsUp({
 Explanation of each option follows:
 
 * [selector](#selector)
+* [debounce](#debounce)
 * [hiddenHeaderClass](#hiddenHeaderClass)
 
 ### selector
@@ -56,6 +54,19 @@ Any CSS selector that targets to your header element.
 ```es6
 headsUp({
   target: '#header'
+})
+```
+
+### debounce
+
+When the user scrolls, a function is called to check whether it is necessary to hide or reveal the header. Specify the amount of time between function calls with the debounce option, in milliseconds. This may help with performance.
+
+```es6
+
+// will wait 100ms after each function call
+
+headsUp({
+  debounce: 100
 })
 ```
 
