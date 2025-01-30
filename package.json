@@ -4,6 +4,7 @@
   "description": "Sticky headers that hide on scroll.",
   "main": "src/headsup.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "test": "standard src/*.js",
     "check-lint": "prettier --list-different '**/*.js' && eslint '**/*.js'",
